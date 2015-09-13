@@ -3,7 +3,7 @@
 
     <div class="card">
       <div class="item item-image">
-        <img src="../img/ionic.png" height="128px">
+        <img src="../img/logo.png" height="128px">
       </div>
     </div>
 
@@ -25,8 +25,8 @@
       </div>
     </div>
 
-    <button class="button icon-left ion-social-facebook button-block button-positive" translate> LOGIN_FACEBOOK </button>
-    <button class="button icon-left ion-social-googleplus button-block button-assertive" translate> LOGIN_GOOGLE </button>
+    <button ng-click="facebookLogin()" class="button icon-left ion-social-facebook button-block button-positive" translate> LOGIN_FACEBOOK </button>
+    <button ng-click="googleLogin()" class="button icon-left ion-social-googleplus button-block button-assertive" translate> LOGIN_GOOGLE </button>
 
   </ion-content>
 </ion-view>

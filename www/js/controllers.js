@@ -1,5 +1,5 @@
 
-appControllers.controller('LoginCtrl', function($scope, $ionicPopup, Login) {
+appControllers.controller('LoginCtrl', function($rootScope, $scope, $ionicPopup, Login) {
     $scope.credentials = {};
 
     $scope.login = function () {
@@ -9,6 +9,34 @@ appControllers.controller('LoginCtrl', function($scope, $ionicPopup, Login) {
                     title: 'שגיאה',
                     template: responseData.message
                 });
+            } else {
+                $rootScope.user = responseData.user;
+            }
+        });
+    };
+
+    $scope.facebookLogin = function () {
+        Login.facebook({}, function (responseData) {
+            if (!responseData.user) {
+                $ionicPopup.alert({
+                    title: 'שגיאה',
+                    template: responseData.message
+                });
+            } else {
+                $rootScope.user = responseData.user;
+            }
+        });
+    };
+
+    $scope.googleLogin = function () {
+        Login.google({}, function (responseData) {
+            if (!responseData.user) {
+                $ionicPopup.alert({
+                    title: 'שגיאה',
+                    template: responseData.message
+                });
+            } else {
+                $rootScope.user = responseData.user;
             }
         });
     }

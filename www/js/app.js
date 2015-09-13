@@ -9,7 +9,10 @@ var app = angular.module('app', [
     'appDirectives'
 ]);
 
-app.run(function($ionicPlatform) {
+app.run(function($rootScope, $ionicPlatform) {
+
+    $rootScope.user = false;
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
