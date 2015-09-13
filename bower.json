@@ -4,5 +4,12 @@
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0",
     "ionic-service-core": "~0.1.10"
+  },
+  "dependencies": {
+    "angular-translate": "~2.7.2",
+    "angular-resource": "~1.4.5"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
   }
 }

@@ -1,22 +1,18 @@
-angular.module('starter.services', [])
+var urlBase = 'https://eitan-orhemi.c9.io';
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
+appServices.factory('Login', ['$resource',
+    function($resource){
 
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-});
+      return $resource('url', null, {
+        login: {url:urlBase + '/auth/login', method:'POST'},
+        logout: {url:urlBase + '/auth/logout', method:'GET'},
+        isLoggedIn: {url:urlBase + '/auth/isLoggedIn', method:'GET'}
+      });
+    }]
+);
+
+appServices.factory('User', ['$resource',
+        function($resource){
+            return $resource(urlBase+ '/user/:userId', {userId:'@id'});
+        }]
+);

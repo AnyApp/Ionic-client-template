@@ -1,0 +1,28 @@
+<ion-view  view-title="{{ 'SIGNUP_TITLE' | translate}}">
+  <ion-content class="padding" dir="rtl">
+
+    <h5 translate >SIGNUP_MSG</h5> <br/>
+
+
+    <div class="list">
+      <label class="item item-input">
+        <input ng-model="user.username" type="text" placeholder="{{ 'USERNAME' | translate}}">
+      </label>
+      <label class="item item-input">
+        <input ng-model="user.password" type="password" placeholder="{{ 'PASSWORD' | translate}}">
+      </label>
+      <label class="item item-input">
+        <input ng-model="user.mail" type="email" placeholder="{{ 'MAIL' | translate}}">
+      </label>
+      <label class="item item-input">
+        <input ng-model="user.fullname" type="text" placeholder="{{ 'FULLNAME' | translate}}">
+      </label>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button ng-click="signup()" class="button button-block button-light" translate> SIGNUP </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
