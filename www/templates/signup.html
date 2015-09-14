@@ -1,28 +1,61 @@
-<ion-view  view-title="{{ 'SIGNUP_TITLE' | translate}}">
-  <ion-content class="padding" dir="rtl">
+<ion-view view-title="{{ 'SIGNUP_TITLE' | translate}}">
+    <ion-content class="padding" dir="rtl">
 
-    <h5 translate >SIGNUP_MSG</h5> <br/>
+        <h5 translate>SIGNUP_MSG</h5> <br/>
 
+        <form name="signupForm" novalidate class="ng-pristine ng-valid">
+            <div class="list">
+                <label class="item item-input"
+                       ng-class="{'has-error':signupForm.username.$dirty && signupForm.username.$invalid, 'valid' : signupForm.username.$dirty && signupForm.username.$valid}">
+                    <input name="username" ng-model="user.username" type="text"
+                           placeholder="{{ 'USERNAME' | translate}}"
+                           ng-minlength="6" required />
+                </label>
+                <div class="form-errors" ng-messages="signupForm.username.$error">
+                    <div class="form-error" ng-message="required" >{{'FORM_MSG.REQUIRED' | translate}}</div>
+                    <div class="form-error" ng-message="minlength">{{'FORM_MSG.MINLENGTH' | translate:'{ value: 6 }'}}</div>
+                </div>
 
-    <div class="list">
-      <label class="item item-input">
-        <input ng-model="user.username" type="text" placeholder="{{ 'USERNAME' | translate}}">
-      </label>
-      <label class="item item-input">
-        <input ng-model="user.password" type="password" placeholder="{{ 'PASSWORD' | translate}}">
-      </label>
-      <label class="item item-input">
-        <input ng-model="user.mail" type="email" placeholder="{{ 'MAIL' | translate}}">
-      </label>
-      <label class="item item-input">
-        <input ng-model="user.fullname" type="text" placeholder="{{ 'FULLNAME' | translate}}">
-      </label>
-    </div>
+                <label class="item item-input"
+                       ng-class="{'has-error':signupForm.password.$dirty && signupForm.password.$invalid, 'valid' : signupForm.password.$dirty && signupForm.password.$valid}">
+                <input name="password" ng-model="user.password" type="password"
+                           placeholder="{{ 'PASSWORD' | translate}}"
+                           ng-minlength="6" required />
+                </label>
+                <div class="form-errors" ng-messages="signupForm.password.$error">
+                    <div class="form-error" ng-message="required" >{{'FORM_MSG.REQUIRED' | translate}}</div>
+                    <div class="form-error" ng-message="minlength">{{'FORM_MSG.MINLENGTH' | translate:'{ value: 6 }'}}</div>
+                </div>
 
-    <div class="row">
-      <div class="col">
-        <button ng-click="signup()" class="button button-block button-light" translate> SIGNUP </button>
-      </div>
-    </div>
-  </ion-content>
+                <label class="item item-input"
+                       ng-class="{'has-error':signupForm.mail.$dirty && signupForm.mail.$invalid, 'valid' : signupForm.mail.$dirty && signupForm.mail.$valid}">
+                <input name="mail" ng-model="user.mail" type="email" placeholder="{{ 'MAIL' | translate}}"
+                           required />
+                </label>
+                <div class="form-errors" ng-messages="signupForm.mail.$error">
+                    <div class="form-error" ng-message="required" >{{'FORM_MSG.REQUIRED' | translate}}</div>
+                    <div class="form-error" ng-message="email">{{'FORM_MSG.EMAIL' | translate}}</div>
+                </div>
+
+                <label class="item item-input"
+                       ng-class="{'has-error':signupForm.fullname.$dirty && signupForm.fullname.$invalid, 'valid' : signupForm.fullname.$dirty && signupForm.fullname.$valid}">
+
+                <input name="fullname" ng-model="user.fullname" type="text"
+                           placeholder="{{ 'FULLNAME' | translate}}"
+                           required />
+                </label>
+                <div class="form-errors" ng-messages="signupForm.fullname.$error">
+                    <div class="form-error" ng-message="required" >{{'FORM_MSG.REQUIRED' | translate}}</div>
+                </div>
+
+            </div>
+        </form>
+        <div class="row">
+            <div class="col">
+                <button ng-disabled="signupForm.$invalid" ng-click="signup()" class="button button-block button-light"
+                        translate> SIGNUP
+                </button>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>
