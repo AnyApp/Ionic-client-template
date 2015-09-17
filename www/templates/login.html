@@ -1,32 +1,38 @@
-<ion-view  view-title="{{ 'LOGIN_TITLE' | translate}}">
-  <ion-content class="padding" dir="rtl">
+<ion-view view-title="{{ 'LOGIN_TITLE' | translate}}">
+    <ion-content class="padding" dir="rtl">
 
-    <div class="card">
-      <div class="item item-image">
-        <img src="../img/logo.png" height="128px">
-      </div>
-    </div>
+        <div class="card">
+            <div class="item item-image">
+                <img src="../img/logo.png" height="128px">
+            </div>
+        </div>
 
-    <div class="list">
-      <label class="item item-input">
-        <input ng-model="credentials.username" type="text" placeholder="{{ 'USERNAME' | translate}}">
-      </label>
-      <label class="item item-input">
-        <input ng-model="credentials.password" type="password" placeholder="{{ 'PASSWORD' | translate}}">
-      </label>
-    </div>
+        <div class="list">
+            <label class="item item-input">
+                <input ng-model="credentials.username" type="text" placeholder="{{ 'USERNAME' | translate}}">
+            </label>
+            <label class="item item-input">
+                <input ng-model="credentials.password" type="password" placeholder="{{ 'PASSWORD' | translate}}">
+            </label>
+        </div>
 
-    <div class="row">
-      <div class="col">
-        <button ng-click="login()" class="button button-block button-light" translate> LOGIN </button>
-      </div>
-      <div class="col">
-        <a class="button button-block button-light" ui-sref="signup" translate>SIGNUP</a>
-      </div>
-    </div>
+        <div class="row">
+            <div class="col">
+                <button ui-sref="app.editProfile" ng-click="login()" class="button button-block button-light" translate>
+                    LOGIN
+                </button>
+            </div>
+            <div class="col">
+                <a class="button button-block button-light" ui-sref="signup" translate>SIGNUP</a>
+            </div>
+        </div>
 
-    <button ng-click="facebookLogin()" class="button icon-left ion-social-facebook button-block button-positive" translate> LOGIN_FACEBOOK </button>
-    <button ng-click="googleLogin()" class="button icon-left ion-social-googleplus button-block button-assertive" translate> LOGIN_GOOGLE </button>
+        <button ng-click="facebookLogin()" class="button icon-left ion-social-facebook button-block button-positive"
+                translate> LOGIN_FACEBOOK
+        </button>
+        <button ng-click="googleLogin()" class="button icon-left ion-social-googleplus button-block button-assertive"
+                translate> LOGIN_GOOGLE
+        </button>
 
-  </ion-content>
+    </ion-content>
 </ion-view>

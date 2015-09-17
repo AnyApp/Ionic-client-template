@@ -1,0 +1,121 @@
+<ion-view view-title="{{ 'EDITPROFILE_TITLE' | translate}}">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive" ng-disabled="editForm.$invalid" ng-click="save()" translate> SAVE</button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content class="padding" dir="rtl">
+        <div class="row">
+            <div class="col text-align-center">
+                <img src="../img/logo.png" height="120px" width="120px">
+            </div>
+            <div class="col text-align-center col-center">
+                <button class="button button-block" ng-click="changePicture()" translate> CHANGE_PICTURE</button>
+            </div>
+        </div>
+        <form name="editForm" novalidate class="ng-pristine ng-valid">
+            <div class="list">
+                <label class="item item-input"
+                       ng-class="{'has-error':editForm.fullname.$invalid, 'valid' : editForm.fullname.$dirty && editForm.fullname.$valid}">
+                    <span class="input-label" translate>FULLNAME</span>
+                    <input name="fullname" ng-model="user.fullname" type="text"
+                           required/>
+                </label>
+
+                <div class="form-errors" ng-messages="editForm.fullname.$error">
+                    <div class="form-error" ng-message="required">{{'FORM_MSG.REQUIRED' | translate}}</div>
+                </div>
+
+                <label class="item item-input"
+                       ng-class="{'has-error':editForm.phone.$invalid, 'valid' : editForm.phone.$dirty && editForm.phone.$valid}">
+                    <span class="input-label" translate>PHONE</span>
+                    <input name="phone" ng-model="user.phone" type="tel"
+                           ng-minlength="8" required/>
+                </label>
+
+                <div class="form-errors" ng-messages="editForm.phone.$error">
+                    <div class="form-error" ng-message="required">{{'FORM_MSG.REQUIRED' | translate}}</div>
+                    <div class="form-error" ng-message="minlength">{{'FORM_MSG.MINLENGTH' | translate:'{ value: 8 }'}}
+                    </div>
+                </div>
+
+                <label class="item item-input"
+                       ng-class="{'has-error':editForm.mail.$invalid, 'valid' : editForm.mail.$dirty && editForm.mail.$valid}">
+                    <span class="input-label" translate>MAIL</span>
+                    <input name="mail" ng-model="user.mail" type="email"
+                           required/>
+                </label>
+
+                <div class="form-errors" ng-messages="editForm.mail.$error">
+                    <div class="form-error" ng-message="required">{{'FORM_MSG.REQUIRED' | translate}}</div>
+                    <div class="form-error" ng-message="email">{{'FORM_MSG.EMAIL' | translate}}</div>
+                </div>
+
+                <div class="row padding-0 padding-bottom-10">
+                    <div class="col padding-0">
+                        <div class="input-label" translate> COUNTRY</div>
+                    </div>
+                    <div class="col col-67 padding-0">
+                        <label class="item item-input item-select"
+                               ng-class="{'has-error':editForm.country.$invalid, 'valid' : editForm.country.$dirty && editForm.country.$valid}">
+                            <div class="input-label" translate> COUNTRY</div>
+                            <select name="country" ng-model="user.country"
+                                    required>
+                                <option>ישראל</option>
+                                <option>איטליה</option>
+                                <option>צרפת</option>
+                            </select>
+                        </label>
+                        <div class="form-errors" ng-messages="editForm.country.$error">
+                            <div class="form-error" ng-message="required">{{'FORM_MSG.REQUIRED' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row padding-0 padding-bottom-10">
+                    <div class="col padding-0">
+                        <div class="input-label" translate> CITY</div>
+                    </div>
+                    <div class="col col-67 padding-0">
+                        <label class="item item-input item-select"
+                               ng-class="{'has-error':editForm.city.$invalid, 'valid' : editForm.city.$dirty && editForm.city.$valid}">
+                            <div class="input-label" translate> CITY</div>
+                            <select name="city" ng-model="user.city"
+                                    required>
+                                <option>תל אביב</option>
+                                <option>ירושלים</option>
+                                <option>חיפה</option>
+                            </select>
+                        </label>
+                        <div class="form-errors" ng-messages="editForm.city.$error">
+                            <div class="form-error" ng-message="required">{{'FORM_MSG.REQUIRED' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row padding-0">
+                    <div class="col padding-0">
+                        <div class="input-label" translate> BIRTH_YEAR</div>
+                    </div>
+                    <div class="col col-67 padding-0">
+                        <label class="item item-input item-select"
+                               ng-class="{'has-error':editForm.birthYear.$invalid, 'valid' : editForm.birthYear.$dirty && editForm.birthYear.$valid}">
+                            <div class="input-label" translate> BIRTH_YEAR</div>
+                            <select name="birthYear" ng-model="user.birthYear"
+                                    required>
+                                <option>1992</option>
+                                <option>1993</option>
+                                <option>1994</option>
+                            </select>
+                        </label>
+                        <div class="form-errors" ng-messages="editForm.birthYear.$error">
+                            <div class="form-error" ng-message="required">{{'FORM_MSG.REQUIRED' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+    </ion-content>
+</ion-view>

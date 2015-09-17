@@ -15,6 +15,6 @@ appServices.factory('Login', ['$resource',
 
 appServices.factory('User', ['$resource',
         function($resource){
-            return $resource(urlBase+ '/user/:userId', {userId:'@id'});
+            return $resource(urlBase+ '/user/:id', {id:'@id'});
         }]
 );

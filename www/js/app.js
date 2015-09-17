@@ -4,6 +4,7 @@ var app = angular.module('app', [
     'ionic.service.core',
     'pascalprecht.translate',
     'ngMessages',
+    'ngCordova',
 
     'appControllers',
     'appServices',
@@ -34,6 +35,20 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
     $stateProvider
         // setup an abstract state for the tabs directive
         // Each tab has its own nav history stack:
+        .state('app', {
+            url: '/app',
+            abstract: true,
+            templateUrl: 'templates/menu.html'
+        })
+        .state('app.editProfile', {
+            url: '/editProfile',
+            views: {
+                'appContent': {
+                    templateUrl: 'templates/editProfile.html',
+                    controller: 'EditProfileCtrl'
+                }
+            }
+        })
         .state('login', {
             url: '/login',
             controller: 'LoginCtrl',
@@ -44,18 +59,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
             controller: 'SignupCtrl',
             templateUrl: 'templates/signup.html'
         })
-        .state('', {
-            url: '/signup',
-            controller: 'SignupCtrl',
-            templateUrl: 'templates/signup.html'
-        })
     ;
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/app/editProfile');
 
     $translateProvider.translations('he_IL', {
         'LOGIN_TITLE': 'התחברות',
         'SIGNUP_TITLE': 'הרשמה',
+        'EDITPROFILE_TITLE': 'עריכת פרופיל',
+
+        'SAVE': 'שמור',
         'USERNAME': 'שם משתמש',
         'PASSWORD': 'סיסמא',
         'LOGIN': 'התחבר',
@@ -65,9 +78,24 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
         'SIGNUP_MSG': 'הזן מספר פרטים והתחל לשלם למוניות מהפלאפון',
         'MAIL': 'כתובת מייל',
         'FULLNAME': 'שם מלא',
+        'PHONE': 'מספר פלאפון',
+        'COUNTRY': 'מדינה',
+        'CITY': 'עיר',
+        'BIRTH_YEAR': 'שנת לידה',
+
+        'CHANGE_PICTURE': 'החלף תמונה',
         'FORM_MSG.REQUIRED': 'שדה חובה',
         'FORM_MSG.MINLENGTH': 'חייב להכיל לפחות {{value}} תווים',
-        'FORM_MSG.EMAIL': 'כתובת אימייל לא חוקית'
+        'FORM_MSG.EMAIL': 'כתובת אימייל לא חוקית',
+
+        'MENU.SEARCH_CABS': 'חפש מוניות',
+        'MENU.STATS': 'סטטיסטיקות',
+        'MENU.PAYMENT': 'הגדרת אמצעי תשלום',
+        'MENU.EDIT_PROFILE': 'עריכת פרופיל',
+        'MENU.LOGOUT': 'התנתק'
+
+
+
     });
 
     $translateProvider.preferredLanguage('he_IL');
