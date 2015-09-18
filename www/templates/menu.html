@@ -14,16 +14,21 @@
         </ion-pane>-->
 
     <ion-side-menu side="left">
-        <header class="bar bar-header bar-stable">
-            <h1 class="title">השם שלך</h1>
-        </header>
-        <ion-content class="has-header">
+        <ion-content>
+            <div class="row">
+                <div class="col text-align-center">
+                    <img src="../img/logo.png" height="80px" width="80px">
+                </div>
+                <div class="col text-align-center col-center">
+                    <h4>השם שלך</h4>
+                </div>
+            </div>
             <ion-list dir="rtl">
-                <ion-item nav-clear menu-close ui-sref="app.search" > {{ 'MENU.SEARCH_CABS' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.search" > {{ 'MENU.STATS' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.search" > {{ 'MENU.PAYMENT' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.search" > {{ 'MENU.EDIT_PROFILE' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.search" > {{ 'MENU.LOGOUT' | translate}} </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.search" ><i class="ion-scissors padding"> </i> {{ 'MENU.SEARCH_CABS' | translate}} </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.search" ><i class="ion-scissors padding"> </i> {{ 'MENU.STATS' | translate}} </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.search" ><i class="ion-scissors padding"> </i> {{ 'MENU.PAYMENT' | translate}} </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.editProfile" ><i class="ion-scissors padding"> </i> {{ 'MENU.EDIT_PROFILE' | translate}} </ion-item>
+                <ion-item nav-clear menu-close ui-sref="login" ><i class="ion-scissors padding"> </i> {{ 'MENU.LOGOUT' | translate}} </ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

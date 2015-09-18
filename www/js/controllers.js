@@ -61,7 +61,7 @@ appControllers.controller('SignupCtrl', function ($scope, $ionicPopup, User) {
     }
 });
 
-appControllers.controller('EditProfileCtrl', function ($rootScope, $scope, $ionicPopup, $cordovaImagePicker, User) {
+appControllers.controller('EditProfileCtrl', function ($rootScope, $scope, $cordovaImagePicker, $ionicPopup, User) {
     $scope.user = {};
     User.get({id: '55f6c9c9fba6737f431e6590'}, function (responseData) {
         if (!responseData) {
@@ -85,18 +85,18 @@ appControllers.controller('EditProfileCtrl', function ($rootScope, $scope, $ioni
         });
     };
 
+    var options = {
+        maximumImagesCount: 10,
+        width: 800,
+        height: 800,
+        quality: 80
+    };
     $scope.changePicture = function () {
-        var options = {
-            maximumImagesCount: 1
-        };
 
         $cordovaImagePicker.getPictures(options)
             .then(function (results) {
                 for (var i = 0; i < results.length; i++) {
-                    $ionicPopup.alert({
-                        title: 'שגיאה',
-                        template: 'Image URI: ' + results[i]
-                    });
+                    console.log('Image URI: ' + results[i]);
                 }
             }, function (error) {
                 // error getting photos
