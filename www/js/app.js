@@ -11,9 +11,27 @@ var app = angular.module('app', [
     'appDirectives'
 ]);
 
-app.run(function ($rootScope, $ionicPlatform) {
+app.run(function ($rootScope, $ionicPlatform, $state, Login) {
 
-    $rootScope.user = false;
+    Login.isLoggedIn(function (responseData) {
+        if (responseData['status'] && responseData['status'] == 1) {
+            var data = responseData['data'];
+            if (data.ans) {
+                $rootScope.user = responseData.user;
+            } else {
+                $rootScope.user = false;
+/*                if (!$state.is('login')) {
+                    $state.go('login');
+                }*/
+            }
+        }
+        else {
+            $ionicPopup.alert({
+                title: 'שגיאה',
+                template: responseData.msg || 'אין תשובה מהשרת'
+            });
+        }
+    });
 
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -27,6 +45,8 @@ app.run(function ($rootScope, $ionicPlatform) {
             // org.apache.cordova.statusbar required
             StatusBar.styleLightContent();
         }
+
+
     });
 });
 
@@ -61,7 +81,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
         })
     ;
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/editProfile');
+    $urlRouterProvider.otherwise('/login');
 
     $translateProvider.translations('he_IL', {
         'LOGIN_TITLE': 'התחברות',
@@ -93,7 +113,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
         'MENU.PAYMENT': 'הגדרת אמצעי תשלום',
         'MENU.EDIT_PROFILE': 'עריכת פרופיל',
         'MENU.LOGOUT': 'התנתק'
-
 
 
     });

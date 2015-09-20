@@ -14,21 +14,31 @@
         </ion-pane>-->
 
     <ion-side-menu side="left">
-        <ion-content>
+        <ion-content ng-controller="MenuCtrl">
             <div class="row">
                 <div class="col text-align-center">
-                    <img src="../img/logo.png" height="80px" width="80px">
+                    <img ng-src="{{ user.profileImg }}" height="80px" width="80px">
                 </div>
                 <div class="col text-align-center col-center">
-                    <h4>השם שלך</h4>
+                    <h4>{{user.fullname}}</h4>
                 </div>
             </div>
             <ion-list dir="rtl">
-                <ion-item nav-clear menu-close ui-sref="app.search" ><i class="ion-scissors padding"> </i> {{ 'MENU.SEARCH_CABS' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.search" ><i class="ion-scissors padding"> </i> {{ 'MENU.STATS' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.search" ><i class="ion-scissors padding"> </i> {{ 'MENU.PAYMENT' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.editProfile" ><i class="ion-scissors padding"> </i> {{ 'MENU.EDIT_PROFILE' | translate}} </ion-item>
-                <ion-item nav-clear menu-close ui-sref="login" ><i class="ion-scissors padding"> </i> {{ 'MENU.LOGOUT' | translate}} </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.search" >
+                    <i class="ion-search padding"> </i> {{ 'MENU.SEARCH_CABS' | translate}}
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.search" >
+                    <i class="ion-stats-bars padding"> </i> {{ 'MENU.STATS' | translate}}
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.search" >
+                    <i class="ion-card padding"> </i> {{ 'MENU.PAYMENT' | translate}}
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="app.editProfile" >
+                    <i class="ion-person padding"> </i> {{ 'MENU.EDIT_PROFILE' | translate}}
+                </ion-item>
+                <ion-item nav-clear menu-close ui-sref="" ng-click="logout()" >
+                    <i class="ion-log-out padding"> </i> {{ 'MENU.LOGOUT' | translate}}
+                </ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>
