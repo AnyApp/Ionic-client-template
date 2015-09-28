@@ -3,7 +3,8 @@ appControllers.controller('AppCtrl', function ($rootScope, $scope, $ionicSideMen
 });
 
 
-appControllers.controller('MenuCtrl', function ($rootScope, $scope, $state, Login) {
+appControllers.controller('MenuCtrl', function ($rootScope, $scope, $state, Login, User) {
+
     $scope.logout = function () {
         Login.logout(function (responseData) {
             $state.go('login');
@@ -11,7 +12,7 @@ appControllers.controller('MenuCtrl', function ($rootScope, $scope, $state, Logi
     };
 });
 
-appControllers.controller('LoginCtrl', function ($rootScope, $scope, $ionicPopup, $state, $localStorage, Login) {
+appControllers.controller('LoginCtrl', function ($rootScope, $scope, $ionicPopup, $state, $cordovaOauth, Login) {
     $scope.credentials = {};
 
     $scope.login = function () {
@@ -20,8 +21,7 @@ appControllers.controller('LoginCtrl', function ($rootScope, $scope, $ionicPopup
             if (responseData['status'] && responseData['status'] == 1) {
                 var data = responseData['data'];
                 $rootScope.user = data.user;
-                //$localStorage.set('sails.sid', data.sid);
-                $state.go('app.editProfile');
+                $state.go('app.searchCabs');
             }
             else {
                 $ionicPopup.alert({
@@ -33,73 +33,74 @@ appControllers.controller('LoginCtrl', function ($rootScope, $scope, $ionicPopup
     };
 
     $scope.facebookLogin = function () {
-        Login.facebook({}, function (responseData) {
-
-            if (responseData['status'] && responseData['status'] == 1) {
-                var data = responseData['data'];
-                $rootScope.user = data.user;
-                $cookieStore.put('sails.sid', data.sid);
-                $state.go('app.editProfile');
-            }
-            else {
-                $ionicPopup.alert({
-                    title: 'שגיאה',
-                    template: responseData.msg || 'אין תשובה מהשרת'
-                });
-            }
+        $cordovaOauth.facebook("808294869269670", ["email", "user_photos"]).then(function(result) {
+            Login.facebook(result, function (responseData) {
+                if (responseData['status'] && responseData['status'] == 1) {
+                    var data = responseData['data'];
+                    $rootScope.user = data.user;
+                    $state.go('app.searchCabs');
+                }
+                else {
+                    $ionicPopup.alert({
+                        title: 'שגיאה',
+                        template: responseData.msg || 'אין תשובה מהשרת'
+                    });
+                }
+            });
+        }, function(error) {
+            $ionicPopup.alert({
+                title: 'שגיאה',
+                template: error || 'אין תשובה מהשרת'
+            });
         });
     };
 
     $scope.googleLogin = function () {
-        Login.google({}, function (responseData) {
-            if (responseData['status'] && responseData['status'] == 1) {
-                var data = responseData['data'];
-                $rootScope.user = data.user;
-                $cookieStore.put('sails.sid', data.sid);
-                $state.go('app.editProfile');
-            }
-            else {
-                $ionicPopup.alert({
-                    title: 'שגיאה',
-                    template: responseData.msg || 'אין תשובה מהשרת'
-                });
-            }
+        $cordovaOauth.google("680729757298-aqvh71v8fh2ni76h6dk20221jihck14b.apps.googleusercontent.com", ["email"]).then(function(result) {
+            Login.google(result, function (responseData) {
+                if (responseData['status'] && responseData['status'] == 1) {
+                    var data = responseData['data'];
+                    $rootScope.user = data.user;
+                    $state.go('app.searchCabs');
+                }
+                else {
+                    $ionicPopup.alert({
+                        title: 'שגיאה',
+                        template: responseData.msg || 'אין תשובה מהשרת'
+                    });
+                }
+            });
+        }, function(error) {
+            $ionicPopup.alert({
+                title: 'שגיאה',
+                template: error || 'אין תשובה מהשרת'
+            });
         });
-    }
+    };
 });
 
-appControllers.controller('SignupCtrl', function ($scope, $ionicPopup, User) {
+appControllers.controller('SignupCtrl', function ($scope, $ionicPopup, $state, User) {
     $scope.user = {};
 
     $scope.signup = function () {
         User.save($scope.user, function (responseData) {
-            if (!responseData.user) {
+            if (responseData.username != $scope.user.username) {
                 $ionicPopup.alert({
                     title: 'שגיאה',
                     template: responseData.message
                 });
+            } else {
+                $state.go('login');
             }
         });
     }
 });
 
 appControllers.controller('EditProfileCtrl', function ($rootScope, $scope, $cordovaImagePicker, $cordovaFileTransfer, $ionicPopup, User, File) {
-    $scope.user = {};
-
-    User.get({id: '55f6c9c9fba6737f431e6590'}, function (responseData) {
-        if (!responseData) {
-            $ionicPopup.alert({
-                title: 'שגיאה',
-                template: responseData.message
-            });
-        } else {
-            $scope.user = responseData;
-        }
-    });
 
     $scope.save = function () {
-        User.save($scope.user, function (responseData) {
-            console.log(responseData);
+        User.save($rootScope.user, function (responseData) {
+            //console.log(responseData);
         });
     };
 
@@ -112,17 +113,19 @@ appControllers.controller('EditProfileCtrl', function ($rootScope, $scope, $cord
             .then(function (results) {
                 var server = urlBase + '/file/upload';
                 for (var i = 0; i < results.length; i++) {
-                    $scope.user.profileImg = results[i];
                     $cordovaFileTransfer.upload(server, results[i], {})
                         .then(function (result) {
                             var response = JSON.parse(result.response);
 
                             if (response.data && response.data.files.length > 0) {
-                                $scope.user.profileImg = response.data.files[0].extra.Location;
+                                $rootScope.user.profileImg = response.data.files[0].extra.Location;
                                 $scope.save();
                             }
                         }, function (err) {
-                            console.log(err);
+                            $ionicPopup.alert({
+                                title: 'שגיאה',
+                                template: 'שליחת התמונה נכשלה'
+                            });
                         }, function (progress) {
                         });
 
@@ -133,5 +136,16 @@ appControllers.controller('EditProfileCtrl', function ($rootScope, $scope, $cord
                     template: error
                 });
             });
+    }
+});
+
+appControllers.controller('SearchCabsCtrl', function ($scope, $ionicPopup) {
+    $scope.items = [];
+    for (var i = 0; i < 50; i++) {
+        var toPush = {
+            title: i + 1,
+            img: 'img/logo.png'
+        };
+        $scope.items.push(toPush);
     }
 });

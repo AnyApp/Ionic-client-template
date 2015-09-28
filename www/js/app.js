@@ -11,18 +11,21 @@ var app = angular.module('app', [
     'appDirectives'
 ]);
 
-app.run(function ($rootScope, $ionicPlatform, $state, Login) {
+app.run(function ($rootScope, $ionicPlatform, $ionicPopup, $state, Login) {
 
     Login.isLoggedIn(function (responseData) {
         if (responseData['status'] && responseData['status'] == 1) {
             var data = responseData['data'];
+
             if (data.ans) {
-                $rootScope.user = responseData.user;
+                $rootScope.user = data.user;
+                $state.go('app.searchCabs');
+
             } else {
                 $rootScope.user = false;
-/*                if (!$state.is('login')) {
+                if (!$state.is('login')) {
                     $state.go('login');
-                }*/
+                }
             }
         }
         else {
@@ -50,6 +53,10 @@ app.run(function ($rootScope, $ionicPlatform, $state, Login) {
     });
 });
 
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+}]);
+
 app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
 
     $stateProvider
@@ -62,12 +69,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
         })
         .state('app.editProfile', {
             url: '/editProfile',
-            views: {
-                'appContent': {
-                    templateUrl: 'templates/editProfile.html',
-                    controller: 'EditProfileCtrl'
-                }
-            }
+            templateUrl: 'templates/editProfile.html',
+            controller: 'EditProfileCtrl'
+        })
+        .state('app.searchCabs', {
+            url: '/searchCabs',
+            templateUrl: 'templates/searchCabs.html',
+            controller: 'SearchCabsCtrl'
         })
         .state('login', {
             url: '/login',

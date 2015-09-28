@@ -1,0 +1,20 @@
+<ion-view view-title="חפש מוניות">
+
+    <ion-content class="" dir="rtl">
+        <ion-list>
+            <ion-item collection-repeat="item in items">
+                <div class="row">
+                    <div class="col text-align-center">
+                        <img class="photo" height="80px" width="80px" ng-src="{{item.img}}">
+                    </div>
+                    <div class="col-90 text-align-center col-center">
+                        {{'item number ' + item.title}}
+                    </div>
+
+                </div>
+
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>
